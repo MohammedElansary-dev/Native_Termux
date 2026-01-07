@@ -40,17 +40,17 @@ Open Termux and run these commands one by one.
 
 3.  **Clone this Repository:**
     ```bash
-    git clone https://github.com/your-username/your-repo-name.git
+    git clone https://github.com/MohammedElansary-dev/Native_Termux
     ```
 
 4.  **Navigate to the Directory:**
     ```bash
-    cd your-repo-name
+    cd Native_Termux
     ```
 
 5.  **Run the Installer:**
     ```bash
-    bash install_minimal.sh
+    bash native_termux_install.sh
     ```
 
 The script will guide you through the installation process.
@@ -70,6 +70,11 @@ After the script finishes, you **must** set your passwords.
     passwd
     ```
     *(Enter a password for your user account.)*
+
+3. **Run XFCE4_CLEANUP.sh script**
+```bash
+bash XFCE4_CLEANUP.sh
+```
 
 ## How to Use
 
@@ -94,6 +99,10 @@ After running either command, a dashboard will appear showing your phone's IP ad
 3.  **Address:** Enter the IP address shown in the Termux dashboard, followed by `:5901`.
     -   Example: `192.168.1.10:5901`
 4.  Connect and enter the password you set with `vncpasswd`.
+5. for best performance on TigerVNC use these settings
+
+<img width="576" height="442" alt="Screenshot 2026-01-07 230528" src="https://github.com/user-attachments/assets/d3da0e39-5df1-4fa9-9733-4d8f052db2da" />
+
 
 ### Connecting via SSH (Remote Terminal)
 
