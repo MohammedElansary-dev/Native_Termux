@@ -119,16 +119,54 @@ After running either command, a dashboard will appear showing your phone's IP ad
 
 ### Random Crashes or "Signal 9" Error
 
-If your desktop closes randomly, it is because of Android's **Phantom Process Killer**, a feature in Android 12+ that aggressively terminates background apps.
+If your desktop closes randomly (usually after 10-30 minutes), it is because of **Android's Phantom Process Killer** (introduced in Android 12). This feature aggressively kills high-resource apps running in the background.
 
-**To fix this permanently, you must run this command from a PC using ADB:**
+**Note for Pixel/Samsung users:** This setting often resets to default after every phone restart. You may need to run this fix again if you reboot your phone.
 
-1.  Enable "USB Debugging" in your phone's Developer Options.
-2.  Connect your phone to your PC.
-3.  Run this command on your PC:
+#### Option 1: Fix using PC (USB Cable) - *Easiest*
+
+1.  Enable **USB Debugging** in your phone's Developer Options.
+2.  download adb tools
+3.  Connect your phone to your PC via USB.
+4.  On your PC terminal, run:
     ```bash
     adb shell device_config put activity_manager max_phantom_processes 2147483647
     ```
+
+#### Option 2: Fix using Phone (Wireless Debugging) - *No PC Required*
+
+You can fix this directly from Termux if you are on Android 11+.
+
+1.  **Install ADB in Termux:**
+    ```bash
+    pkg install android-tools -y
+    ```
+2.  **Enable Wireless Debugging:**
+    *   Go to Android Settings -> **Developer Options**.
+    *   Turn on **Wireless Debugging**.
+3.  **Pair the Device:**
+    *   Tap on the text "Wireless Debugging" -> **Pair device with pairing code**.
+    *   In Termux (split-screen helps), type: `adb pair IP_ADDRESS:PORT` (Use the IP & Port shown on the popup).
+    *   Enter the Wi-Fi pairing code when asked.
+4.  **Connect to the Device (Crucial Step):**
+    *   **Close the pairing popup** on your phone.
+    *   Look at the main "Wireless Debugging" menu. Find the **IP address & Port** (This port is different from the pairing port).
+    *   In Termux, type: `adb connect IP_ADDRESS:PORT`
+5.  **Run the Fix:**
+    ```bash
+    adb shell device_config put activity_manager max_phantom_processes 2147483647
+    ```
+
+#### How to Verify the Fix is Active
+
+To check if the fix is currently working, run this command in Termux (while ADB is connected):
+
+```bash
+adb shell device_config get activity_manager max_phantom_processes
+```
+
+*   **Result: `2147483647`** -> ✅ **SAFE.** Your desktop will not crash.
+*   **Result: `32` or `null`** -> ❌ **BAD.** The limit is active. You must run the fix command again.
 
 This command only needs to be run once.
 
