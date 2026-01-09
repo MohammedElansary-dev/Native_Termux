@@ -89,7 +89,7 @@ fi
 print_step "2/4" "Installing Packages"
 
 # Standard minimal packages
-PACKAGES="xfce4 tigervnc openssh pulseaudio pavucontrol xfce4-terminal"
+PACKAGES="xfce4 tigervnc openssh pulseaudio pavucontrol xfce4-terminal feh"
 
 echo -e "${B}[*] Downloading Core Components...${W}"
 echo -e "${Y}(Nala will show progress details below)${W}"
@@ -147,15 +147,18 @@ rm -rf /tmp/.X1-lock /tmp/.X11-unix/X1
 # SSH
 sshd > /dev/null 2>&1 || true
 
-# Enable Compositor
-export DISPLAY=:1
-xfconf-query -c xfwm4 -p /general/use_compositing -s true > /dev/null 2>&1 || true
-
-# Start VNC (High Quality - 24 bit)
+# 1. Start VNC FIRST (High Quality - 24 bit)
 echo "Starting Standard Desktop..."
 vncserver :1 -geometry 1280x720 -depth 24 -name "Termux XFCE" > /dev/null 2>&1
 
-# Get IP (Suppressing /proc permission errors)
+# 2. Wait for server to initialize
+export DISPLAY=:1
+sleep 2
+
+# 3. Apply Settings (Now that server is running)
+xfconf-query -c xfwm4 -p /general/use_compositing -s true > /dev/null 2>&1 || true
+
+# Get IP
 IP=\$(ifconfig 2>/dev/null | grep -A 1 "wlan0" | grep "inet" | awk '{print \$2}')
 if [ -z "\$IP" ]; then IP="127.0.0.1"; fi
 
@@ -185,7 +188,7 @@ vncserver :1 -geometry 1280x720 -depth 16 -name "Termux XFCE Lite" > /dev/null 2
 export DISPLAY=:1
 sleep 2
 xfconf-query -c xfwm4 -p /general/use_compositing -s false > /dev/null 2>&1 || true
-# Enable Wireframe Dragging (Speed)
+# Enable Wireframe Dragging (Speeeeeeeed)
 xfconf-query -c xfwm4 -p /general/box_move -s true > /dev/null 2>&1 || true
 
 WIFI_IP=\$(ifconfig 2>/dev/null | grep -A 1 "wlan0" | grep "inet" | awk '{print \$2}')
