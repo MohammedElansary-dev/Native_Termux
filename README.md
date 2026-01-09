@@ -146,12 +146,13 @@ You can fix this directly from Termux if you are on Android 11+.
     *   Turn on **Wireless Debugging**.
 3.  **Pair the Device:**
     *   Tap on the text "Wireless Debugging" -> **Pair device with pairing code**.
-    *   In Termux (split-screen helps), type: `adb pair IP_ADDRESS:PORT` (Use the IP & Port shown on the popup).
+    *   In Termux (split-screen helps) or VNC, type: `adb pair IP_ADDRESS:PORT` (Use the IP & Port shown on the popup).
     *   Enter the Wi-Fi pairing code when asked.
 4.  **Connect to the Device (Crucial Step):**
     *   **Close the pairing popup** on your phone.
     *   Look at the main "Wireless Debugging" menu. Find the **IP address & Port** (This port is different from the pairing port).
     *   In Termux, type: `adb connect IP_ADDRESS:PORT`
+    *   run `adb devices` to see if your device is there
 5.  **Run the Fix:**
     ```bash
     adb shell device_config put activity_manager max_phantom_processes 2147483647
