@@ -4,8 +4,6 @@ A fast, fully automated, and optimized script to install a full-featured XFCE4 d
 
 This installer merges system setup, optimization, and tool installation into **one single script**. It sets up VNC, SSH, Audio, and useful utilities like a file server and smart extractor automatically.
 
-<img width="498" height="283" alt="Screenshot_20260107-225743" src="https://github.com/user-attachments/assets/eb4cbc70-53cd-4edd-b4b5-38d0a955f8c2" />
-
 ## ✨ Features
 
 -   **All-in-One Setup:** Installs XFCE4, VNC, Audio, and Tools in one go.
